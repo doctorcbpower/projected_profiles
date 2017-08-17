@@ -1,9 +1,8 @@
 program main
   use constants
-  use kinematics, only: compute_sigma
   use structure, only: getmvir,getrvir
   implicit none
-
+  
   real(kind=8) :: virial_mass,virial_velocity,virial_radius
   real(kind=8) :: nfw_concentration,virial_overdensity
   real(kind=8) :: disc_mass_fraction,disc_scale_length_fraction
@@ -114,7 +113,7 @@ program main
 
   
   call compute_sigma(nr_tab,r_tab,&
-       & virial_mass,nfw_concentration,virial_overdensity,&
+       & virial_mass,virial_radius,nfw_concentration,virial_overdensity,&
        & bulge_mass,bulge_radius,&
        & disc_mass,disc_radius,&
        & black_hole_mass,fmax,fcut,&
@@ -127,7 +126,7 @@ program main
   write(32,*) black_hole_mass
   write(32,*) velocity_anisotropy_amplitude,velocity_anisotropy_radius
   do i=1,nr_tab
-     write(32,*) r_tab(i),sqrt(sigr_tab(i)),sqrt(sigp_tab(i)),sigm_tab(i)
+     write(32,*) r_tab(i),sigr_tab(i),sigp_tab(i),sigm_tab(i)
   end do
   close(32)
   
