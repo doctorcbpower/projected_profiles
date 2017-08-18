@@ -1,6 +1,7 @@
-compute_sigma <- function(ntab,rtab,m200=100,c200=10,deltavir=200.,
+compute_sigma <- function(ntab,rtab,m200=100,c200=10,
+                          deltavir=200.,halotype=0,
                           mbulge=0.05,fbulge=0.01,mdisc=0,fdisc=0,
-                          mbh=1.e-4,fmax=1.e3,fcut=0.5,beta=0.0,r_a=0.0) {
+                          mbh=1.e-4,fmax=1.e3,fcut=1.5,beta=0.0,r_a=0.0) {
       if(is.null(ntab))
         ntab=500
       if(is.null(rtab)) { 
@@ -8,7 +9,7 @@ compute_sigma <- function(ntab,rtab,m200=100,c200=10,deltavir=200.,
         rtab=10**lr
       }
       
-      dyn.load("compute_sigma.so")
+      dyn.load("~/Projected_Profiles/compute_sigma.so")
       out<-.Fortran("compute_sigma",
                     nr_tab=as.integer(ntab),
                     rtab=as.double(rtab),
@@ -16,6 +17,7 @@ compute_sigma <- function(ntab,rtab,m200=100,c200=10,deltavir=200.,
                     r200=as.double(1),
                     c200=as.double(c200),
                     deltavir=as.double(deltavir),
+                    halotype=as.integer(halotype),
                     mbulge=as.double(mbulge),
                     fbulge=as.double(fbulge),
                     mdisc=as.double(mdisc),

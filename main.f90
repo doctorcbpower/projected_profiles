@@ -5,6 +5,7 @@ program main
   
   real(kind=8) :: virial_mass,virial_velocity,virial_radius
   real(kind=8) :: nfw_concentration,virial_overdensity
+  integer(kind=4) :: halo_type
   real(kind=8) :: disc_mass_fraction,disc_scale_length_fraction
   real(kind=8) :: disc_mass,disc_radius
   real(kind=8) :: bulge_mass_fraction,bulge_scale_length_fraction
@@ -35,10 +36,6 @@ program main
   
   isbh=.false.
   
-#if defined(HERNQUIST_HALO) && defined(NFW_HALO)
-  write(*,*) 'Error: multiple DM halos!'
-#endif      
-
   if(command_argument_count().eq.0) stop 'Usage: compute_sigma.exe <parameter_file>'
   
   call get_command_argument(1,paramfile)
@@ -47,7 +44,7 @@ program main
 
   if(fexist.eqv..false.) stop 'Error: parameter file does not exist'
   call set_parameters(paramfile,virial_mass,virial_velocity,nfw_concentration,&
-     & virial_overdensity,disc_mass_fraction,disc_scale_length_fraction,&
+     & virial_overdensity,halo_type,disc_mass_fraction,disc_scale_length_fraction,&
      & bulge_mass_fraction,bulge_scale_length_fraction,black_hole_mass_fraction,&
      & velocity_anisotropy_amplitude,velocity_anisotropy_radius)
   if(black_hole_mass_fraction.gt.0.0) isbh=.true.
@@ -55,15 +52,13 @@ program main
   ! Define dimension and bounds of the mesh
 
   outfile='projected_props.'
-#ifdef HERNQUIST_HALO
-  outfile=trim(outfile)//'hern_halo.'
-#elif NFW_HALO
-  outfile=trim(outfile)//'nfw_halo.'
-#endif
+  if(halo_type.eq.0) then
+     outfile=trim(outfile)//'hern_halo.'
+  else
+     outfile=trim(outfile)//'nfw_halo.'
+  end if
 
-#ifdef HERNQUIST_BULGE
-  outfile=trim(outfile)//'hern_bulge.'
-#endif
+  if(bulge_mass.gt.0.0) outfile=trim(outfile)//'hern_bulge.'
 
   if(velocity_anisotropy_radius.le.0.0) then
      if(velocity_anisotropy_amplitude.lt.0) then
@@ -110,10 +105,10 @@ program main
   
   write(*,*) 'Radial limits [kpc] :',r_tab(1),r_tab(nr_tab)
   write(*,*)
-
   
   call compute_sigma(nr_tab,r_tab,&
-       & virial_mass,virial_radius,nfw_concentration,virial_overdensity,&
+       & virial_mass,virial_radius,nfw_concentration,&
+       & virial_overdensity,halo_type,&
        & bulge_mass,bulge_radius,&
        & disc_mass,disc_radius,&
        & black_hole_mass,fmax,fcut,&

@@ -1,5 +1,5 @@
 subroutine set_parameters(infile,virial_mass,virial_velocity,nfw_concentration,&
-     & virial_overdensity,disc_mass_fraction,disc_scale_length_fraction,&
+     & virial_overdensity,halo_type,disc_mass_fraction,disc_scale_length_fraction,&
      & bulge_mass_fraction,bulge_scale_length_fraction,black_hole_mass_fraction,&
      & velocity_anisotropy_amplitude,velocity_anisotropy_radius)
 
@@ -7,7 +7,9 @@ subroutine set_parameters(infile,virial_mass,virial_velocity,nfw_concentration,&
   
   character(kind=1,len=*) :: infile              ! input parameter file
 
-  real(kind=8) :: virial_mass,virial_velocity,nfw_concentration,virial_overdensity
+  real(kind=8) :: virial_mass,virial_velocity
+  real(kind=8) :: nfw_concentration,virial_overdensity
+  integer(kind=4) :: halo_type
   real(kind=8) :: disc_mass_fraction,disc_scale_length_fraction
   real(kind=8) :: bulge_mass_fraction,bulge_scale_length_fraction
   real(kind=8) :: black_hole_mass_fraction
@@ -19,7 +21,8 @@ subroutine set_parameters(infile,virial_mass,virial_velocity,nfw_concentration,&
   namelist /halo/ virial_mass,&   ! Virial mass, Msol
        & virial_velocity,&        ! Virial velocity, in km/s
        & nfw_concentration,&      ! NFW Concentration parameter
-       & virial_overdensity       ! Overdensity parameter
+       & virial_overdensity,&     ! Overdensity parameter
+       & halo_type                ! Halo profile - 0 for Hernquist, 1 for NFW  
   ! Disc properties
   namelist /disc/ disc_mass_fraction,&     ! Disc mass as fraction of virial mass
        & disc_scale_length_fraction        ! Disc scale length as fraction of halo
@@ -39,14 +42,10 @@ subroutine set_parameters(infile,virial_mass,virial_velocity,nfw_concentration,&
   rewind(1)
   read(1,nml=halo)
   rewind(1)
-#ifdef STELLAR_DISC_EXPONENTIAL
   read(1,nml=disc)
   rewind(1)
-#endif
-#ifdef HERNQUIST_BULGE
   read(1,nml=bulge)
   rewind(1)
-#endif
   read(1,nml=black_hole)
   rewind(1)
   read(1,nml=kinematics)

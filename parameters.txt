@@ -1,20 +1,21 @@
 &HALO
 virial_velocity=200.
 nfw_concentration=10.
+halo_type=0
 /
 
 &DISC
-disc_mass_fraction=0.035
-disc_scale_length_fraction=0.0885
+disc_mass_fraction=0.0
+disc_scale_length_fraction=0.0
 /
 
 &BULGE
-bulge_mass_fraction=0.1
-bulge_scale_length_fraction=0.25
+bulge_mass_fraction=0.0
+bulge_scale_length_fraction=0.0
 /
 
 &BLACK_HOLE
-black_hole_mass_fraction=1.e-4
+black_hole_mass_fraction=0.0
 /
 
 &KINEMATICS

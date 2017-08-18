@@ -5,6 +5,7 @@ module variables
   real(kind=8) :: mvir=0.0  ! virial mass    
   real(kind=8) :: mhalo=0.0 ! halo mass
   real(kind=8) :: v200=0.0  ! virial velocity
+  integer(kind=4) :: halotype ! Type of halo
   real(kind=8) :: rs      ! NFW scale radius
   real(kind=8) :: r200    ! virial radius
   real(kind=8) :: c200    ! NFW concentration
