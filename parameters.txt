@@ -1,5 +1,5 @@
 &HALO
-virial_velocity=200.
+virial_velocity=100.
 nfw_concentration=10.
 halo_type=0
 /
@@ -19,6 +19,6 @@ black_hole_mass_fraction=0.0
 /
 
 &KINEMATICS
-velocity_anisotropy_amplitude=0.0
+velocity_anisotropy_amplitude=0.5
 velocity_anisotropy_radius=0.0
 /

@@ -9,6 +9,8 @@ SOBJ = $(SRCS:.f90=.o)
 FILE = constants.f90 variables.f90 structure.f90 nrutils_modules.f90 kinematics.f90
 FOBJ = $(FILE:.f90=.o)
 
+all: compute_sigma.exe compute_sigma.so
+
 compute_sigma.exe: $(FOBJ) read_params.o compute_sigma.o main.o
 	$(FC) $^ -o compute_sigma.exe 
 

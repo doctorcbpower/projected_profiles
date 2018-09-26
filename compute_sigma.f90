@@ -53,7 +53,9 @@ subroutine compute_sigma(nr_tab,r_tab,virial_mass,virial_radius,&
   r200=virial_radius
   rs=r200/c200                                  ! NFW Scale radius    
   fbulge=bulge_radius
-  fdisc=disc_radius    
+  fdisc=disc_radius
+  beta0=velocity_anisotropy_amplitude
+  r_a=velocity_anisotropy_radius*r200
 
   if(mbulge.gt.0.0 .and. fbulge.le.0.0) stop 'Error: fbulge.le.0.0'
   if(mdisc.gt.0.0 .and. fdisc.le.0.0) stop 'Error: fdisc.le.0.0'

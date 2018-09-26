@@ -58,7 +58,7 @@ program main
      outfile=trim(outfile)//'nfw_halo.'
   end if
 
-  if(bulge_mass.gt.0.0) outfile=trim(outfile)//'hern_bulge.'
+  if(bulge_mass_fraction.gt.0.0) outfile=trim(outfile)//'hern_bulge.'
 
   if(velocity_anisotropy_radius.le.0.0) then
      if(velocity_anisotropy_amplitude.lt.0) then

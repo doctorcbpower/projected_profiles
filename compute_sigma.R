@@ -1,7 +1,7 @@
 compute_sigma <- function(ntab,rtab,m200=100,c200=10,
                           deltavir=200.,halotype=0,
                           mbulge=0.05,fbulge=0.01,mdisc=0,fdisc=0,
-                          mbh=1.e-4,fmax=1.e3,fcut=1.5,beta=0.0,r_a=0.0) {
+                          mbh=0.e-4,fmax=1.e2,fcut=1.5,beta=0.0,r_a=0.0) {
       if(is.null(ntab))
         ntab=500
       if(is.null(rtab)) { 

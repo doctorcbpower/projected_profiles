@@ -128,7 +128,7 @@ contains
        
        x=r/a
        
-       rho_scale = (mhalo/2/pi/a**3)*(r200/a)**2/(1+r200/a)**2
+       rho_scale = (mhalo/2/pi/a**3)!*(1+a/r200)*(1+a/r200)
        
        rhodm = rho_scale/(x*(1+x)*(1+x)*(1+x))
     end if
@@ -191,7 +191,7 @@ contains
     
     if(halotype.eq.0) then
        a=rs*sqrt(2*(dlog(1+c200)-c200/(1+c200)))
-       mtotal=m200*(1+a/r200)*(1+a/r200)-mbulge-mbh
+       mtotal=m200!*(1+a/r200)*(1+a/r200)-mbulge-mbh
        
        dphidr = ggdt*mtotal/(r+a)/(r+a)
     end if
